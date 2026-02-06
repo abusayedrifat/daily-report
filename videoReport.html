@@ -1,462 +1,599 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mediverse Video Upload Report</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
         min-height: 100vh;
         padding: 2rem;
-        }
+      }
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 700px;
+        margin: 0 auto;
+      }
 
-        .page {
-            display: none;
-        }
+      .page {
+        display: none;
+      }
 
-        .page.active {
-            display: block;
-        }
+      .page.active {
+        display: block;
+      }
 
-        .input-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+      .input-section {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
 
-        .report-section {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+      .report-section {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
 
-        h1 {
-            color: #667eea;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 32px;
-        }
+      h1 {
+        color: #667eea;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 32px;
+      }
 
-        h2 {
-            color: #764ba2;
-            margin-bottom: 15px;
-            font-size: 24px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
+      h2 {
+        color: #764ba2;
+        margin-bottom: 15px;
+        font-size: 24px;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+      }
 
-        .date-selector {
-            margin-bottom: 25px;
-            text-align: center;
-        }
+      .date-selector {
+        margin-bottom: 25px;
+        text-align: center;
+      }
 
-        .date-selector input {
-            padding: 12px 20px;
-            font-size: 16px;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            outline: none;
-        }
+      .date-selector input {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 2px solid #667eea;
+        border-radius: 8px;
+        outline: none;
+      }
 
-        .video-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
+      .video-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        border-left: 5px solid #667eea;
+      }
 
-        .video-course-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-        }
+      .video-course-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 10px;
+        background: white;
+        border-radius: 8px;
+      }
 
-        .course-name {
-            flex: 1;
-            font-size: 15px;
-            color: #333;
-        }
+      .course-name {
+        flex: 1;
+        font-size: 15px;
+        color: #333;
+      }
 
-        .course-input {
-            width: 80px;
-            padding: 8px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 16px;
-            outline: none;
-        }
+      .course-input {
+        width: 80px;
+        padding: 8px;
+        border: 2px solid #ddd;
+        border-radius: 6px;
+        text-align: center;
+        font-size: 16px;
+        outline: none;
+      }
 
-        .course-input:focus {
-            border-color: #667eea;
-        }
-        .btn-container {
+      .course-input:focus {
+        border-color: #667eea;
+      }
+      .btn-container {
         display: flex;
         gap: 1rem;
         justify-content: center;
         margin-top: 2rem;
       }
 
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 25px;
-        }
+      .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 25px;
+      }
 
-        .btn {
-            padding: 14px 30px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
+      .btn {
+        padding: 14px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 600;
+      }
 
-        .btn-generate {
-            background: #667eea;
-            color: white;
-        }
+      .btn-generate {
+        background: #667eea;
+        color: white;
+      }
 
-        .btn-generate:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
+      .btn-generate:hover {
+        background: #5568d3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
 
-        .btn-reset {
-            background: #e74c3c;
-            color: white;
-        }
+      .btn-reset {
+        background: #e74c3c;
+        color: white;
+      }
 
-        .btn-reset:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
+      .btn-reset:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+      }
 
-        .btn-back {
-            background: #95a5a6;
-            color: white;
-        }
+      .btn-back {
+        background: #95a5a6;
+        color: white;
+      }
 
-        .btn-back:hover {
-            background: #7f8c8d;
-            transform: translateY(-2px);
-        }
+      .btn-back:hover {
+        background: #7f8c8d;
+        transform: translateY(-2px);
+      }
 
-        .report-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
-        }
+      .report-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #667eea;
+      }
 
-        .report-date {
-            font-size: 20px;
-            color: #666;
-            margin-top: 10px;
-        }
+      .report-date {
+        font-size: 20px;
+        color: #666;
+        margin-top: 10px;
+      }
 
-        .report-course {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 20px;
-            margin-bottom: 8px;
-            background: #f5f5f5;
-            border-radius: 6px;
-            border-left: 4px solid #667eea;
-        }
+      .report-course {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 20px;
+        margin-bottom: 8px;
+        background: #f5f5f5;
+        border-radius: 6px;
+        border-left: 4px solid #667eea;
+      }
 
-        .report-course-name {
-            color: #333;
-            font-size: 16px;
-        }
+      .report-course-name {
+        color: #333;
+        font-size: 16px;
+      }
 
-        .report-course-count {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 18px;
-        }
+      .report-course-count {
+        font-weight: bold;
+        color: #667eea;
+        font-size: 18px;
+      }
 
-        .total-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-        }
+      .total-section {
+        margin-top: 30px;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+      }
 
-        .total-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+      .total-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
 
-        .total-count {
-            font-size: 48px;
-            font-weight: bold;
-        }
+      .total-count {
+        font-size: 48px;
+        font-weight: bold;
+      }
 
-        .video-grid {
-            /* display: grid;
+      .video-grid {
+        /* display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            justify-items: center;
-            gap: 12px;
-        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
+        gap: 12px;
+      }
 
-        .no-data {
-            text-align: center;
-            color: #999;
-            font-size: 18px;
-            padding: 40px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
+      .no-data {
+        text-align: center;
+        color: #999;
+        font-size: 18px;
+        padding: 40px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        margin: 20px 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="btn-container" style="margin-bottom: 10px;">
-        <a href="./index.html" style="text-decoration: none; color: white;"> <button class="btn btn-generate"> Enrollments</button></a> 
-        <a href="#" style="text-decoration: none; color: white;"> <button class="btn btn-generate"> Video Uploads</button></a>
+      <div class="btn-container" style="margin-bottom: 10px">
+        <a href="./index.html" style="text-decoration: none; color: white">
+          <button class="btn btn-generate">Enrollments</button></a
+        >
+        <a href="#" style="text-decoration: none; color: white">
+          <button class="btn btn-generate">Video Uploads</button></a
+        >
       </div>
-        <!-- Input Page -->
-        <div class="page active" id="inputPage">
-            <div class="input-section">
-                <h1>🎥 Mediverse Video Upload Report</h1>
-                
-                <div class="date-selector">
-                    <label for="reportDate"><strong>Select Date:</strong></label>
-                    <input type="date" id="reportDate">
-                </div>
+      <!-- Input Page -->
+      <div class="page active" id="inputPage">
+        <div class="input-section">
+          <h1>🎥 Mediverse Video Upload Report</h1>
 
-                <div class="video-section">
-                    <div class="video-grid">
-                        <div class="video-course-item">
-                            <span class="course-name">120 Disease</span>
-                            <input type="number" class="course-input" data-video="120_disease" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">200 Drugs</span>
-                            <input type="number" class="course-input" data-video="200_drugs" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Anatomy in a nutshell</span>
-                            <input type="number" class="course-input" data-video="anatomy_nutshell" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Bailey & love</span>
-                            <input type="number" class="course-input" data-video="bailey_love_video" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Card Cracker 6</span>
-                            <input type="number" class="course-input" data-video="card_cracker" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">C & C</span>
-                            <input type="number" class="course-input" data-video="c_and_c" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Dental Pharmacology</span>
-                            <input type="number" class="course-input" data-video="dental_pharma" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Feel the Medicine</span>
-                            <input type="number" class="course-input" data-video="feel_medicine" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">FCPS (gynae & obs)</span>
-                            <input type="number" class="course-input" data-video="fcps_gynae" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Gynae & Obs</span>
-                            <input type="number" class="course-input" data-video="gynae_obs_video" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">History takings</span>
-                            <input type="number" class="course-input" data-video="history_takings" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Maxillofacial</span>
-                            <input type="number" class="course-input" data-video="maxillofacial" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Microbiology rapid review</span>
-                            <input type="number" class="course-input" data-video="micro_review" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Neuro Imaging</span>
-                            <input type="number" class="course-input" data-video="neuro_imaging_video" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Systemic pathology</span>
-                            <input type="number" class="course-input" data-video="systemic_path" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Post grade pathology</span>
-                            <input type="number" class="course-input" data-video="postgrad_path" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">Rapid review, Psychiatry</span>
-                            <input type="number" class="course-input" data-video="psych_review" min="0" placeholder="0">
-                        </div>
-                        <div class="video-course-item">
-                            <span class="course-name">SDM crash course</span>
-                            <input type="number" class="course-input" data-video="sdm_crash" min="0" placeholder="0">
-                        </div>
-                    </div>
-                </div>
+          <div class="date-selector">
+            <label for="reportDate"><strong>Select Date:</strong></label>
+            <input type="date" id="reportDate" />
+          </div>
 
-                <div class="button-group">
-                    <button class="btn btn-generate" onclick="generateReport()">Generate Report</button>
-                    <button class="btn btn-reset" onclick="resetForm()">Reset All</button>
-                </div>
+          <div class="video-section">
+            <div class="video-grid">
+              <div class="video-course-item">
+                <span class="course-name">120 Disease</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="120_disease"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">200 Drugs</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="200_drugs"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">ABC of MBBS</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="abcOfMBBS"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Anatomy in a nutshell</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="anatomy_nutshell"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Bailey & love</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="bailey_love_video"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Card Cracker 6</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="card_cracker"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">C & C</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="c_and_c"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Dental Pharmacology</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="dental_pharma"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Feel the Medicine</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="feel_medicine"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">FCPS (gynae & obs)</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="fcps_gynae"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Gynae & Obs</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="gynae_obs_video"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">History takings</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="history_takings"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Maxillofacial</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="maxillofacial"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Microbiology rapid review</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="micro_review"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Neuro Imaging</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="neuro_imaging_video"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Systemic pathology</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="systemic_path"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Post grade pathology</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="postgrad_path"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">Rapid review, Psychiatry</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="psych_review"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
+              <div class="video-course-item">
+                <span class="course-name">SDM crash course</span>
+                <input
+                  type="number"
+                  class="course-input"
+                  data-video="sdm_crash"
+                  min="0"
+                  placeholder="0"
+                />
+              </div>
             </div>
-        </div>
+          </div>
 
-        <!-- Report Page -->
-        <div class="page" id="reportPage">
-            <div class="report-section">
-                <div class="report-header">
-                    <h1>🎥 Video Upload Report</h1>
-                    <div class="report-date" id="reportDateDisplay"></div>
-                </div>
-                <div id="reportContent"></div>
-                
-                <div class="button-group">
-                    <button class="btn btn-back" onclick="backToForm()">← Back to Form</button>
-                    <button class="btn btn-reset" onclick="resetAndBack()">Reset & New Report</button>
-                </div>
-            </div>
+          <div class="button-group">
+            <button class="btn btn-generate" onclick="generateReport()">
+              Generate Report
+            </button>
+            <button class="btn btn-reset" onclick="resetForm()">
+              Reset All
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Report Page -->
+      <div class="page" id="reportPage">
+        <div class="report-section">
+          <div class="report-header">
+            <h1>🎥 Video Upload Report</h1>
+            <div class="report-date" id="reportDateDisplay"></div>
+          </div>
+          <div id="reportContent"></div>
+
+          <div class="button-group">
+            <button class="btn btn-back" onclick="backToForm()">
+              ← Back to Form
+            </button>
+            <button class="btn btn-reset" onclick="resetAndBack()">
+              Reset & New Report
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Set today's date as default
-        document.getElementById('reportDate').valueAsDate = new Date();
+      // Set today's date as default
+      document.getElementById("reportDate").valueAsDate = new Date();
 
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
+      function showPage(pageId) {
+        document.querySelectorAll(".page").forEach((page) => {
+          page.classList.remove("active");
+        });
+        document.getElementById(pageId).classList.add("active");
+      }
+
+      function generateReport() {
+        const date = document.getElementById("reportDate").value;
+        if (!date) {
+          alert("Please select a date!");
+          return;
         }
 
-        function generateReport() {
-            const date = document.getElementById('reportDate').value;
-            if (!date) {
-                alert('Please select a date!');
-                return;
-            }
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
 
-            const dateObj = new Date(date);
-            const formattedDate = dateObj.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+        document.getElementById("reportDateDisplay").textContent =
+          formattedDate;
 
-            document.getElementById('reportDateDisplay').textContent = formattedDate;
+        let reportHTML = "";
+        let totalVideos = 0;
 
-            let reportHTML = '';
-            let totalVideos = 0;
+        const videoData = [
+          { name: "120 Disease", key: "120_disease" },
+          { name: "200 Drugs", key: "200_drugs" },
+          { name: "ABC oof MBBS", key: "abcOfMBBS" },
+          { name: "Anatomy in a nutshell", key: "anatomy_nutshell" },
+          { name: "Bailey & love", key: "bailey_love_video" },
+          { name: "Card Cracker 6", key: "card_cracker" },
+          { name: "C & C", key: "c_and_c" },
+          { name: "Dental Pharmacology", key: "dental_pharma" },
+          { name: "Feel the Medicine", key: "feel_medicine" },
+          { name: "FCPS (gynae & obs)", key: "fcps_gynae" },
+          { name: "Gynae & Obs", key: "gynae_obs_video" },
+          { name: "History takings", key: "history_takings" },
+          { name: "Maxillofacial", key: "maxillofacial" },
+          { name: "Microbiology rapid review", key: "micro_review" },
+          { name: "Neuro Imaging", key: "neuro_imaging_video" },
+          { name: "Systemic pathology", key: "systemic_path" },
+          { name: "Post grade pathology", key: "postgrad_path" },
+          { name: "Rapid review, Psychiatry", key: "psych_review" },
+          { name: "SDM crash course", key: "sdm_crash" },
+        ];
 
-            const videoData = [
-                { name: '120 Disease', key: '120_disease' },
-                { name: '200 Drugs', key: '200_drugs' },
-                { name: 'Anatomy in a nutshell', key: 'anatomy_nutshell' },
-                { name: 'Bailey & love', key: 'bailey_love_video' },
-                { name: 'Card Cracker 6', key: 'card_cracker' },
-                { name: 'C & C', key: 'c_and_c' },
-                { name: 'Dental Pharmacology', key: 'dental_pharma' },
-                { name: 'Feel the Medicine', key: 'feel_medicine' },
-                { name: 'FCPS (gynae & obs)', key: 'fcps_gynae' },
-                { name: 'Gynae & Obs', key: 'gynae_obs_video' },
-                { name: 'History takings', key: 'history_takings' },
-                { name: 'Maxillofacial', key: 'maxillofacial' },
-                { name: 'Microbiology rapid review', key: 'micro_review' },
-                { name: 'Neuro Imaging', key: 'neuro_imaging_video' },
-                { name: 'Systemic pathology', key: 'systemic_path' },
-                { name: 'Post grade pathology', key: 'postgrad_path' },
-                { name: 'Rapid review, Psychiatry', key: 'psych_review' },
-                { name: 'SDM crash course', key: 'sdm_crash' }
-            ];
+        videoData.forEach((video) => {
+          const input = document.querySelector(`[data-video="${video.key}"]`);
+          const count = parseInt(input.value) || 0;
 
-            videoData.forEach(video => {
-                const input = document.querySelector(`[data-video="${video.key}"]`);
-                const count = parseInt(input.value) || 0;
-                
-                if (count > 0) {
-                    totalVideos += count;
-                    reportHTML += `
+          if (count > 0) {
+            totalVideos += count;
+            reportHTML += `
                         <div class="report-course">
                             <span class="report-course-name">${video.name}</span>
                             <span class="report-course-count placeholder="0">${count}</span>
                         </div>
                     `;
-                }
-            });
+          }
+        });
 
-            if (totalVideos === 0) {
-                reportHTML = '<div class="no-data">No video uploads recorded for this date.</div>';
-            }
+        if (totalVideos === 0) {
+          reportHTML =
+            '<div class="no-data">No video uploads recorded for this date.</div>';
+        }
 
-            reportHTML += `
+        reportHTML += `
                 <div class="total-section">
                     <div class="total-title">Total Video Uploads</div>
                     <div class="total-count">${totalVideos}</div>
                 </div>
             `;
 
-            document.getElementById('reportContent').innerHTML = reportHTML;
-            showPage('reportPage');
-        }
+        document.getElementById("reportContent").innerHTML = reportHTML;
+        showPage("reportPage");
+      }
 
-        function backToForm() {
-            showPage('inputPage');
-        }
+      function backToForm() {
+        showPage("inputPage");
+      }
 
-        function resetForm() {
-            if (confirm('Are you sure you want to reset all data?')) {
-                document.querySelectorAll('.course-input').forEach(input => {
-                    input.value = 0;
-                });
-            }
+      function resetForm() {
+        if (confirm("Are you sure you want to reset all data?")) {
+          document.querySelectorAll(".course-input").forEach((input) => {
+            input.value = 0;
+          });
         }
+      }
 
-        function resetAndBack() {
-            if (confirm('Are you sure you want to reset all data and create a new report?')) {
-                document.querySelectorAll('.course-input').forEach(input => {
-                    input.value = 0;
-                });
-                showPage('inputPage');
-            }
+      function resetAndBack() {
+        if (
+          confirm(
+            "Are you sure you want to reset all data and create a new report?",
+          )
+        ) {
+          document.querySelectorAll(".course-input").forEach((input) => {
+            input.value = 0;
+          });
+          showPage("inputPage");
         }
+      }
     </script>
-</body>
+  </body>
 </html>
