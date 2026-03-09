@@ -106,18 +106,13 @@
         margin-bottom: 1rem;
       }
 
-      
-      
-        
-        .course-item {
-          margin: 0px auto 20px;
-          width: 550px;
+      .course-item {
+        margin: 0px auto 20px;
+        width: 100%;
         background: #f9fafb;
         border: 1px solid #e5e7eb;
         border-radius: 0.5rem;
         padding: 1rem;
-        
-
       }
 
       .course-item label {
@@ -126,7 +121,6 @@
         font-weight: 500;
         margin-bottom: 0.5rem;
         font-size: 0.9rem;
-        
       }
 
       .course-item input {
@@ -294,6 +288,7 @@
       }
 
       .report-course-item {
+        border: 1px solid red;
         background: #f9fafb;
         border-radius: 0.5rem;
         padding: 1rem 1.5rem;
@@ -305,6 +300,8 @@
 
       .report-course-name {
         color: #374151;
+
+        border: 1px solid red;
       }
 
       .report-course-count {
@@ -332,9 +329,13 @@
   <body>
     <!-- Form View -->
     <div id="form-view" class="container">
-      <div class="btn-container" style="margin-bottom: 10px;">
-         <a href="#"  style="text-decoration: none; color: white;"><button class="btn btn-primary ">Enrollments</button></a> 
-        <a href="./videoReport.html" style="text-decoration: none; color: white;"><button class="btn btn-primary "> Video Uploads</button></a>
+      <div class="btn-container" style="margin-bottom: 10px">
+        <a href="#" style="text-decoration: none; color: white"
+          ><button class="btn btn-primary">Enrollments</button></a
+        >
+        <a href="./videoReport.html" style="text-decoration: none; color: white"
+          ><button class="btn btn-primary">Video Uploads</button></a
+        >
       </div>
       <div class="card">
         <div class="card-content">
@@ -346,8 +347,7 @@
             <input type="date" id="reportDate" />
           </div>
 
-              <div id="coursesForm"></div>
-          
+          <div id="coursesForm"></div>
 
           <div class="btn-container">
             <button class="btn btn-primary" onclick="generateReport()">
@@ -404,7 +404,9 @@
       const courses = {
         "1st Prof": {
           "Dr. Jahinul Anam Fayed": ["Physiology Crash Course"],
-          "Md Mehedi Hasan Heem":["Clinical Correlation of Endocrine Physiology"]
+          "Md Mehedi Hasan Heem": [
+            "Clinical Correlation of Endocrine Physiology",
+          ],
         },
         "2nd Prof": {
           "Dr. Ashraful Alam": [
@@ -414,8 +416,8 @@
         },
         "3rd Prof": {
           "Dr. Khalid Mustakim": [
-          "RFST & Day Visit (A to Z)",
-          "Foundations of General Pathology: A Robbins-Based Course"
+            "RFST & Day Visit (A to Z)",
+            "Foundations of General Pathology: A Robbins-Based Course",
           ],
         },
         "4th Prof": {
@@ -432,9 +434,7 @@
             "ECG Course",
             "Fluid Electrolyte and Nutrition",
           ],
-          "Combined":[
-            "Final Prof Crash Course"
-          ]
+          Combined: ["Final Prof Crash Course"],
         },
         "Post Graduate": {
           "Dr. Sayema Tabassum": ["Most Common Gynae and Obs Counselling"],
