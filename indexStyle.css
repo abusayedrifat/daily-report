@@ -606,7 +606,7 @@ h1 {
   color: rgba(255, 255, 255, 0.897);
   font-weight: 500;
   margin-bottom: 0.5rem;
-  font-size: 0.88rem;
+  font-size: 1rem;
 }
 
 .course-item input {
@@ -869,7 +869,7 @@ h1 {
 .report-mentor-total {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 1rem;
 }
 
 /* ===== REPORT COURSE LIST ===== */
@@ -899,7 +899,7 @@ h1 {
 
 .report-course-name {
   color: rgba(248, 248, 248, 0.9);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .report-course-count {
@@ -909,7 +909,7 @@ h1 {
   padding: 0.35rem 1rem;
   border-radius: 2rem;
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 1rem;
   letter-spacing: 0.02em;
   box-shadow: 0 0 10px rgba(0, 155, 119, 0.1);
 }
